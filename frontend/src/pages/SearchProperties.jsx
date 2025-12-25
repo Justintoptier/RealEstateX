@@ -29,6 +29,11 @@ const SearchProperties = () => {
   const [results, setResults] = useState([]);
   const [hasSearched, setHasSearched] = useState(false);
 
+  // Load all properties on mount
+  useEffect(() => {
+    handleSearch();
+  }, []);
+
   const handleInputChange = (e) => {
     setFilters({
       ...filters,
