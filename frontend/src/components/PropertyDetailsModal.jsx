@@ -1,10 +1,54 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
 import { Button } from './ui/button';
-import { Download, MapPin, Building, DollarSign, Home, X } from 'lucide-react';
+import { Download, MapPin, Building, DollarSign, Home, Settings, Eye, EyeOff } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
+import { useToast } from '../hooks/use-toast';
 
-const PropertyDetailsModal = ({ property, isOpen, onClose }) => {
+const PropertyDetailsModal = ({ property, isOpen, onClose, onUpdate }) => {
+  const { user } = useAuth();
+  const { toast } = useToast();
+  const [showFieldSettings, setShowFieldSettings] = useState(false);
+  const [fieldVisibility, setFieldVisibility] = useState({
+    budget: true,
+    configurations: true,
+    location: true,
+    carpet_area: true,
+    price_per_sqft: true,
+    developer: true,
+    description: true,
+    gmaps_link: true,
+    tags: true,
+    downloads: true
+  });
+
+  useEffect(() => {
+    if (property && property.field_visibility) {
+      setFieldVisibility({ ...fieldVisibility, ...property.field_visibility });
+    } else {
+      // Reset to all visible
+      setFieldVisibility({
+        budget: true,
+        configurations: true,
+        location: true,
+        carpet_area: true,
+        price_per_sqft: true,
+        developer: true,
+        description: true,
+        gmaps_link: true,
+        tags: true,
+        downloads: true
+      });
+    }
+  }, [property]);
+
   if (!property) return null;
+
+  const isAdmin = user?.role === 'admin';
+  const isFieldVisible = (fieldName) => {
+    // Admin always sees all fields, users see based on settings
+    return isAdmin || fieldVisibility[fieldName] !== false;
+  };
 
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat('en-IN', {
@@ -18,6 +62,64 @@ const PropertyDetailsModal = ({ property, isOpen, onClose }) => {
     const downloadUrl = `${process.env.REACT_APP_BACKEND_URL}/api/files/${filename}`;
     window.open(downloadUrl, '_blank');
   };
+
+  const toggleFieldVisibility = async (fieldName) => {
+    const newVisibility = {
+      ...fieldVisibility,
+      [fieldName]: !fieldVisibility[fieldName]
+    };
+    
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/api/properties/${property.property_id}/field-visibility`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          credentials: 'include',
+          body: JSON.stringify({
+            field_visibility: newVisibility
+          })
+        }
+      );
+
+      if (response.ok) {
+        setFieldVisibility(newVisibility);
+        toast({
+          title: 'Success',
+          description: `Field visibility updated`,
+          variant: 'default'
+        });
+        if (onUpdate) onUpdate();
+      }
+    } catch (error) {
+      console.error('Update field visibility error:', error);
+      toast({
+        title: 'Error',
+        description: 'Failed to update field visibility',
+        variant: 'destructive'
+      });
+    }
+  };
+
+  const FieldToggle = ({ fieldName, label }) => (
+    <div className="flex items-center justify-between p-2 bg-black/30 rounded border border-gray-800">
+      <span className="text-gray-300 text-sm">{label}</span>
+      <Button
+        onClick={() => toggleFieldVisibility(fieldName)}
+        variant="ghost"
+        size="sm"
+        className={`${
+          fieldVisibility[fieldName] 
+            ? 'text-green-400 hover:text-green-300' 
+            : 'text-red-400 hover:text-red-300'
+        }`}
+      >
+        {fieldVisibility[fieldName] ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
+      </Button>
+    </div>
+  );
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
