@@ -25,9 +25,19 @@ const UserManagement = () => {
     loadUsers();
   }, []);
 
-  const loadUsers = () => {
-    const allUsers = getMockUsers();
-    setUsers(allUsers);
+  const loadUsers = async () => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/users`, {
+        credentials: 'include'
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        setUsers(data);
+      }
+    } catch (error) {
+      console.error('Load users error:', error);
+    }
   };
 
   // Check if user is admin
