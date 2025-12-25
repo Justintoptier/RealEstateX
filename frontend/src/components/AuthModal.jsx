@@ -97,23 +97,38 @@ const AuthModal = ({ isOpen, onClose, onLogin }) => {
     }
   };
 
-  const handleOTPVerification = (e) => {
+  const handleOTPVerification = async (e) => {
     e.preventDefault();
 
-    const tempData = JSON.parse(sessionStorage.getItem('temp_auth_data'));
-    
-    if (otpCode === tempData.expectedOTP) {
-      // OTP verified successfully
-      const userData = {
-        user_id: activeTab === 'login' ? 'user_' + Date.now() : 'user_' + Date.now(),
-        name: tempData.username,
-        email: tempData.email,
-        role: tempData.role,
-        picture: `https://ui-avatars.com/api/?name=${encodeURIComponent(tempData.username)}&background=fbbf24&color=000`,
-        twoFactorEnabled: true
-      };
+    try {
+      const tempToken = sessionStorage.getItem('temp_token');
+      
+      if (!tempToken) {
+        throw new Error('Session expired. Please try again.');
+      }
 
-      sessionStorage.removeItem('temp_auth_data');
+      // Verify OTP with backend
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/verify-2fa`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          temp_token: tempToken,
+          otp_code: otpCode
+        })
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.detail || 'Verification failed');
+      }
+
+      const userData = await response.json();
+      
+      // Clean up
+      sessionStorage.removeItem('temp_token');
       onLogin(userData);
       
       toast({
@@ -127,10 +142,11 @@ const AuthModal = ({ isOpen, onClose, onLogin }) => {
       setOtpCode('');
       setStep('credentials');
       onClose();
-    } else {
+    } catch (error) {
+      console.error('OTP verification error:', error);
       toast({
         title: 'Verification Failed',
-        description: 'Invalid OTP code. Please try again.',
+        description: error.message || 'Invalid OTP code. Please try again.',
         variant: 'destructive'
       });
     }
