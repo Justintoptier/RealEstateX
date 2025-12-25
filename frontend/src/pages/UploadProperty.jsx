@@ -275,6 +275,46 @@ const UploadProperty = () => {
                         className="bg-black/50 border-gray-700 text-white placeholder:text-gray-500 focus:border-amber-200 focus:ring-amber-200/20 transition-all duration-300"
                       />
                     </div>
+
+                    {/* Carpet Area */}
+                    <div>
+                      <Label htmlFor="carpetArea" className="text-gray-300 mb-2 block">Carpet Area (sqft)</Label>
+                      <Input
+                        id="carpetArea"
+                        name="carpetArea"
+                        type="number"
+                        value={formData.carpetArea}
+                        onChange={handleInputChange}
+                        placeholder="Enter carpet area"
+                        className="bg-black/50 border-gray-700 text-white placeholder:text-gray-500 focus:border-amber-200 focus:ring-amber-200/20 transition-all duration-300"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Tags */}
+                  <div>
+                    <Label htmlFor="tags" className="text-gray-300 mb-2 block">Tags</Label>
+                    <Input
+                      id="tags"
+                      name="tags"
+                      value={formData.tags}
+                      onChange={handleInputChange}
+                      placeholder="Enter tags separated by commas (e.g., Sea View, Luxury, Garden)"
+                      className="bg-black/50 border-gray-700 text-white placeholder:text-gray-500 focus:border-amber-200 focus:ring-amber-200/20 transition-all duration-300"
+                    />
+                  </div>
+
+                  {/* Google Maps Link */}
+                  <div>
+                    <Label htmlFor="gmapsLink" className="text-gray-300 mb-2 block">Google Maps Link</Label>
+                    <Input
+                      id="gmapsLink"
+                      name="gmapsLink"
+                      value={formData.gmapsLink}
+                      onChange={handleInputChange}
+                      placeholder="Enter Google Maps URL"
+                      className="bg-black/50 border-gray-700 text-white placeholder:text-gray-500 focus:border-amber-200 focus:ring-amber-200/20 transition-all duration-300"
+                    />
                   </div>
 
                   {/* Description */}
