@@ -21,8 +21,10 @@ const UploadProperty = () => {
     configurations: '',
     location: '',
     pricePerSqft: '',
+    carpetArea: '',
     developer: '',
-    description: ''
+    description: '',
+    tags: ''
   });
   const [videoFile, setVideoFile] = useState(null);
   const [floorPlanFile, setFloorPlanFile] = useState(null);
