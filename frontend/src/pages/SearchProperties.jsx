@@ -9,6 +9,7 @@ import { Slider } from '../components/ui/slider';
 import { Building2, ArrowLeft, X, Eye, EyeOff } from 'lucide-react';
 import { searchProperties, togglePropertyVisibility } from '../mockData';
 import { useToast } from '../hooks/use-toast';
+import PropertyDetailsModal from '../components/PropertyDetailsModal';
 
 const SearchProperties = () => {
   const navigate = useNavigate();
