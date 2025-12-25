@@ -54,7 +54,7 @@ const Dashboard = () => {
         </div>
 
         {/* Action Cards */}
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {/* Search Properties Card */}
           <Card 
             className="bg-gray-900/50 border-gray-800 backdrop-blur-sm hover:bg-gray-900/70 transition-all duration-300 hover:shadow-2xl hover:shadow-amber-200/10 hover:-translate-y-1 cursor-pointer group"
@@ -78,49 +78,49 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
-          {/* Upload Property Card - Admin Only */}
+          {/* Upload Property Card */}
+          <Card 
+            className="bg-gray-900/50 border-gray-800 backdrop-blur-sm hover:bg-gray-900/70 transition-all duration-300 hover:shadow-2xl hover:shadow-amber-200/10 hover:-translate-y-1 cursor-pointer group"
+            onClick={() => navigate('/upload')}
+          >
+            <CardHeader>
+              <div className="w-16 h-16 rounded-lg bg-amber-200/10 flex items-center justify-center mb-4 group-hover:bg-amber-200/20 transition-colors duration-300">
+                <Upload className="w-8 h-8 text-amber-200" />
+              </div>
+              <CardTitle className="text-2xl text-white font-serif">Upload Property</CardTitle>
+              <CardDescription className="text-gray-400 text-base mt-2">
+                Add new properties manually{user?.role === 'admin' ? ' or bulk upload via Excel' : ''}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button 
+                className="w-full bg-transparent border-2 border-amber-200 text-amber-200 hover:bg-amber-200 hover:text-black transition-all duration-300"
+              >
+                Upload Property
+              </Button>
+            </CardContent>
+          </Card>
+
+          {/* User Management Card - Admin Only */}
           {user?.role === 'admin' && (
             <Card 
               className="bg-gray-900/50 border-gray-800 backdrop-blur-sm hover:bg-gray-900/70 transition-all duration-300 hover:shadow-2xl hover:shadow-amber-200/10 hover:-translate-y-1 cursor-pointer group"
-              onClick={() => navigate('/upload')}
+              onClick={() => navigate('/users')}
             >
               <CardHeader>
                 <div className="w-16 h-16 rounded-lg bg-amber-200/10 flex items-center justify-center mb-4 group-hover:bg-amber-200/20 transition-colors duration-300">
-                  <Upload className="w-8 h-8 text-amber-200" />
+                  <Users className="w-8 h-8 text-amber-200" />
                 </div>
-                <CardTitle className="text-2xl text-white font-serif">Upload Property</CardTitle>
+                <CardTitle className="text-2xl text-white font-serif">Manage Users</CardTitle>
                 <CardDescription className="text-gray-400 text-base mt-2">
-                  Add new properties manually or bulk upload via Excel
+                  Add, remove users and manage permissions
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <Button 
                   className="w-full bg-transparent border-2 border-amber-200 text-amber-200 hover:bg-amber-200 hover:text-black transition-all duration-300"
                 >
-                  Upload Property
-                </Button>
-              </CardContent>
-            </Card>
-          )}
-
-          {/* Show message for non-admin users */}
-          {user?.role !== 'admin' && (
-            <Card className="bg-gray-900/30 border-gray-800 backdrop-blur-sm opacity-60">
-              <CardHeader>
-                <div className="w-16 h-16 rounded-lg bg-gray-800/50 flex items-center justify-center mb-4">
-                  <Upload className="w-8 h-8 text-gray-600" />
-                </div>
-                <CardTitle className="text-2xl text-gray-500 font-serif">Upload Property</CardTitle>
-                <CardDescription className="text-gray-600 text-base mt-2">
-                  Admin access required to upload properties
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button 
-                  disabled
-                  className="w-full bg-transparent border-2 border-gray-700 text-gray-600 cursor-not-allowed"
-                >
-                  Admin Only
+                  Manage Users
                 </Button>
               </CardContent>
             </Card>
