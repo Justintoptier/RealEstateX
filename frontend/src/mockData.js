@@ -301,6 +301,17 @@ export const updateProperty = (id, updates) => {
   }
 };
 
+export const togglePropertyVisibility = (id) => {
+  const properties = getMockProperties();
+  const index = properties.findIndex(p => p.id === id);
+  if (index !== -1) {
+    properties[index].hidden = !properties[index].hidden;
+    localStorage.setItem('properties', JSON.stringify(properties));
+    return properties[index];
+  }
+  return null;
+};
+
 export const searchProperties = (filters) => {
   let properties = getMockProperties();
   
