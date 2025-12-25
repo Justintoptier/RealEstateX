@@ -329,21 +329,21 @@ const SearchProperties = () => {
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {results.map((property) => (
-                <Card key={property.id} className={`bg-gray-900/50 border-gray-800 backdrop-blur-sm hover:bg-gray-900/70 transition-all duration-300 hover:shadow-lg hover:shadow-amber-200/10 relative ${property.hidden ? 'opacity-60' : ''}`}>
+                <Card key={property.property_id} className={`bg-gray-900/50 border-gray-800 backdrop-blur-sm hover:bg-gray-900/70 transition-all duration-300 hover:shadow-lg hover:shadow-amber-200/10 relative ${property.is_hidden ? 'opacity-60' : ''}`}>
                   {user?.role === 'admin' && (
                     <Button
-                      onClick={() => handleToggleVisibility(property.id)}
+                      onClick={() => handleToggleVisibility(property.property_id)}
                       variant="ghost"
                       size="sm"
                       className="absolute top-4 right-4 z-10 bg-black/50 hover:bg-black/70 text-amber-200"
                     >
-                      {property.hidden ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                      {property.is_hidden ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </Button>
                   )}
                   <CardHeader>
                     <CardTitle className="text-xl text-white font-serif">{property.name}</CardTitle>
                     <p className="text-amber-200 text-lg font-medium">{formatCurrency(property.budget)}</p>
-                    {property.hidden && (
+                    {property.is_hidden && (
                       <span className="text-xs text-red-400">Hidden from users</span>
                     )}
                   </CardHeader>
@@ -359,20 +359,20 @@ const SearchProperties = () => {
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-400">Carpet Area:</span>
-                        <span className="text-white">{property.carpetArea} sqft</span>
+                        <span className="text-white">{property.carpet_area} sqft</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-400">Price/Sqft:</span>
-                        <span className="text-white">₹{property.pricePerSqft.toLocaleString()}</span>
+                        <span className="text-white">₹{property.price_per_sqft?.toLocaleString()}</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-400">Developer:</span>
                         <span className="text-white">{property.developer}</span>
                       </div>
-                      {property.gmapsLink && (
+                      {property.gmaps_link && (
                         <div className="pt-2">
                           <a
-                            href={property.gmapsLink}
+                            href={property.gmaps_link}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-amber-200 hover:text-amber-300 text-sm underline transition-colors duration-300"
