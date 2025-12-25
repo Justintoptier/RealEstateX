@@ -80,8 +80,10 @@ const UploadProperty = () => {
       configurations: '',
       location: '',
       pricePerSqft: '',
+      carpetArea: '',
       developer: '',
-      description: ''
+      description: '',
+      tags: ''
     });
     setVideoFile(null);
     setFloorPlanFile(null);
