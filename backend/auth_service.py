@@ -10,6 +10,11 @@ def create_user(db: Session, user_data: schemas.UserCreate):
     # Check if user exists
     existing_user = db.query(models.User).filter(models.User.email == user_data.email).first()
     if existing_user:
+        # Update role if provided
+        if user_data.role and existing_user.role != user_data.role:
+            existing_user.role = user_data.role
+            db.commit()
+            db.refresh(existing_user)
         return existing_user
     
     # Create new user
