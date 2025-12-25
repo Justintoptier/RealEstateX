@@ -126,6 +126,11 @@ const SearchProperties = () => {
     setHasSearched(false);
   };
 
+  const handlePropertyClick = (property) => {
+    setSelectedProperty(property);
+    setShowDetailsModal(true);
+  };
+
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat('en-IN', {
       style: 'currency',
