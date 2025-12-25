@@ -431,6 +431,7 @@ const SearchProperties = () => {
         property={selectedProperty}
         isOpen={showDetailsModal}
         onClose={() => setShowDetailsModal(false)}
+        onUpdate={() => handleSearch()}
       />
     </div>
   );
