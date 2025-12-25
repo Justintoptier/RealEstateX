@@ -40,11 +40,24 @@ const SearchProperties = () => {
     const searchFilters = {
       ...filters,
       minCarpetArea: carpetAreaRange[0],
-      maxCarpetArea: carpetAreaRange[1]
+      maxCarpetArea: carpetAreaRange[1],
+      showHidden: user?.role === 'admin' // Admin can see hidden properties
     };
     const searchResults = searchProperties(searchFilters);
     setResults(searchResults);
     setHasSearched(true);
+  };
+
+  const handleToggleVisibility = (propertyId) => {
+    const property = togglePropertyVisibility(propertyId);
+    if (property) {
+      toast({
+        title: 'Success',
+        description: `Property ${property.hidden ? 'hidden' : 'visible'} successfully!`,
+        variant: 'default'
+      });
+      handleSearch(); // Refresh results
+    }
   };
 
   const handleClearAll = () => {
