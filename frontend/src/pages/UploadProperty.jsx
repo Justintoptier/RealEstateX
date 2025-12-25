@@ -24,6 +24,8 @@ const UploadProperty = () => {
     developer: '',
     description: ''
   });
+  const [videoFile, setVideoFile] = useState(null);
+  const [floorPlanFile, setFloorPlanFile] = useState(null);
   const [excelFile, setExcelFile] = useState(null);
 
   const handleInputChange = (e) => {
