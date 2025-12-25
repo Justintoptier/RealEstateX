@@ -16,9 +16,20 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check for existing user session
+    // Check for existing user session in localStorage (mock) or backend
     const checkAuth = async () => {
       try {
+        // First check localStorage for mock user
+        const mockUser = localStorage.getItem('mockUser');
+        if (mockUser) {
+          const userData = JSON.parse(mockUser);
+          setUser(userData);
+          setIsAuthenticated(true);
+          setLoading(false);
+          return;
+        }
+
+        // Then try backend auth (for real Google auth)
         const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/me`, {
           credentials: 'include'
         });
@@ -38,6 +49,13 @@ export const AuthProvider = ({ children }) => {
     checkAuth();
   }, []);
 
+  const mockLogin = (userData) => {
+    // Store mock user in localStorage
+    localStorage.setItem('mockUser', JSON.stringify(userData));
+    setUser(userData);
+    setIsAuthenticated(true);
+  };
+
   const login = (userData) => {
     setUser(userData);
     setIsAuthenticated(true);
@@ -45,6 +63,10 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
+      // Clear mock user from localStorage
+      localStorage.removeItem('mockUser');
+      
+      // Try backend logout (for real auth)
       await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/logout`, {
         method: 'POST',
         credentials: 'include'
@@ -57,7 +79,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, loading, login, logout }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, loading, login, logout, mockLogin }}>
       {children}
     </AuthContext.Provider>
   );
