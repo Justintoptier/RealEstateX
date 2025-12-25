@@ -36,27 +36,68 @@ const SearchProperties = () => {
     });
   };
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
     const searchFilters = {
-      ...filters,
-      minCarpetArea: carpetAreaRange[0],
-      maxCarpetArea: carpetAreaRange[1],
-      showHidden: user?.role === 'admin' // Admin can see hidden properties
+      name: filters.name || undefined,
+      location: filters.location || undefined,
+      min_budget: filters.minBudget ? parseFloat(filters.minBudget) : undefined,
+      max_budget: filters.maxBudget ? parseFloat(filters.maxBudget) : undefined,
+      configurations: filters.configurations || undefined,
+      developer: filters.developer || undefined,
+      min_price_per_sqft: filters.minPricePerSqft ? parseFloat(filters.minPricePerSqft) : undefined,
+      max_price_per_sqft: filters.maxPricePerSqft ? parseFloat(filters.maxPricePerSqft) : undefined,
+      min_carpet_area: carpetAreaRange[0],
+      max_carpet_area: carpetAreaRange[1],
+      tags: filters.tags || undefined,
+      show_hidden: user?.role === 'admin'
     };
-    const searchResults = searchProperties(searchFilters);
-    setResults(searchResults);
+
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/properties/search`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify(searchFilters)
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setResults(data);
+      } else {
+        console.error('Search failed');
+      }
+    } catch (error) {
+      console.error('Search error:', error);
+    }
+    
     setHasSearched(true);
   };
 
-  const handleToggleVisibility = (propertyId) => {
-    const property = togglePropertyVisibility(propertyId);
-    if (property) {
-      toast({
-        title: 'Success',
-        description: `Property ${property.hidden ? 'hidden' : 'visible'} successfully!`,
-        variant: 'default'
+  const handleToggleVisibility = async (propertyId) => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/properties/${propertyId}/toggle-visibility`, {
+        method: 'PATCH',
+        credentials: 'include'
       });
-      handleSearch(); // Refresh results
+
+      if (response.ok) {
+        const property = await response.json();
+        toast({
+          title: 'Success',
+          description: `Property ${property.is_hidden ? 'hidden' : 'visible'} successfully!`,
+          variant: 'default'
+        });
+        handleSearch(); // Refresh results
+      }
+    } catch (error) {
+      console.error('Toggle visibility error:', error);
+      toast({
+        title: 'Error',
+        description: 'Failed to update property visibility',
+        variant: 'destructive'
+      });
     }
   };
 
