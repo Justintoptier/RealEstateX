@@ -302,6 +302,57 @@ const UploadProperty = () => {
                     />
                   </div>
 
+                  {/* File Uploads Section */}
+                  <div className="grid md:grid-cols-2 gap-6">
+                    {/* Video Upload */}
+                    <div>
+                      <Label className="text-gray-300 mb-2 block">Property Video</Label>
+                      <div className="relative">
+                        <input
+                          type="file"
+                          accept="video/*"
+                          onChange={handleVideoChange}
+                          className="hidden"
+                          id="video-upload"
+                        />
+                        <Label
+                          htmlFor="video-upload"
+                          className="flex items-center justify-center w-full px-4 py-3 bg-black/50 border-2 border-dashed border-gray-700 rounded text-gray-400 hover:border-amber-200 hover:text-amber-200 cursor-pointer transition-all duration-300"
+                        >
+                          <FileUp className="w-5 h-5 mr-2" />
+                          {videoFile ? videoFile.name : 'Choose Video File'}
+                        </Label>
+                      </div>
+                      {videoFile && (
+                        <p className="text-amber-200 text-sm mt-2">✓ {videoFile.name}</p>
+                      )}
+                    </div>
+
+                    {/* Floor Plan Upload */}
+                    <div>
+                      <Label className="text-gray-300 mb-2 block">Floor Plan</Label>
+                      <div className="relative">
+                        <input
+                          type="file"
+                          accept="image/*,.pdf"
+                          onChange={handleFloorPlanChange}
+                          className="hidden"
+                          id="floorplan-upload"
+                        />
+                        <Label
+                          htmlFor="floorplan-upload"
+                          className="flex items-center justify-center w-full px-4 py-3 bg-black/50 border-2 border-dashed border-gray-700 rounded text-gray-400 hover:border-amber-200 hover:text-amber-200 cursor-pointer transition-all duration-300"
+                        >
+                          <FileUp className="w-5 h-5 mr-2" />
+                          {floorPlanFile ? floorPlanFile.name : 'Choose Floor Plan'}
+                        </Label>
+                      </div>
+                      {floorPlanFile && (
+                        <p className="text-amber-200 text-sm mt-2">✓ {floorPlanFile.name}</p>
+                      )}
+                    </div>
+                  </div>
+
                   {/* Submit Button */}
                   <Button
                     type="submit"
