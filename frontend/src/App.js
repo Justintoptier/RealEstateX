@@ -8,6 +8,7 @@ import AuthCallback from "./pages/AuthCallback";
 import Dashboard from "./pages/Dashboard";
 import SearchProperties from "./pages/SearchProperties";
 import UploadProperty from "./pages/UploadProperty";
+import UserManagement from "./pages/UserManagement";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function AppRouter() {
