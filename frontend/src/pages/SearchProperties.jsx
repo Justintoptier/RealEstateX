@@ -289,6 +289,10 @@ const SearchProperties = () => {
                         <span className="text-white">{property.location}</span>
                       </div>
                       <div className="flex justify-between">
+                        <span className="text-gray-400">Carpet Area:</span>
+                        <span className="text-white">{property.carpetArea} sqft</span>
+                      </div>
+                      <div className="flex justify-between">
                         <span className="text-gray-400">Price/Sqft:</span>
                         <span className="text-white">₹{property.pricePerSqft.toLocaleString()}</span>
                       </div>
@@ -296,6 +300,17 @@ const SearchProperties = () => {
                         <span className="text-gray-400">Developer:</span>
                         <span className="text-white">{property.developer}</span>
                       </div>
+                      {property.tags && property.tags.length > 0 && (
+                        <div className="pt-2 border-t border-gray-800">
+                          <div className="flex flex-wrap gap-2">
+                            {property.tags.map((tag, index) => (
+                              <span key={index} className="px-2 py-1 bg-amber-200/10 text-amber-200 text-xs rounded">
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                       {property.description && (
                         <p className="text-gray-400 mt-4 pt-4 border-t border-gray-800">
                           {property.description}
