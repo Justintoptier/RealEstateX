@@ -132,29 +132,8 @@ const UploadProperty = () => {
     }
   };
 
-  // Check if user is admin
-  if (user?.role !== 'admin') {
-    return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <Card className="bg-gray-900/50 border-gray-800 backdrop-blur-sm max-w-md">
-          <CardHeader>
-            <CardTitle className="text-2xl text-white font-serif text-center">Access Denied</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-gray-400 text-center mb-6">
-              Only administrators can upload properties.
-            </p>
-            <Button
-              onClick={() => navigate('/dashboard')}
-              className="w-full bg-amber-200 hover:bg-amber-300 text-black font-medium transition-all duration-300"
-            >
-              Return to Dashboard
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
+  // Check if user is admin for Excel upload
+  const isAdmin = user?.role === 'admin';
 
   return (
     <div className="min-h-screen bg-black">
