@@ -112,6 +112,20 @@ const UploadProperty = () => {
     }
   };
 
+  const handleVideoChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setVideoFile(file);
+    }
+  };
+
+  const handleFloorPlanChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFloorPlanFile(file);
+    }
+  };
+
   // Check if user is admin
   if (user?.role !== 'admin') {
     return (
