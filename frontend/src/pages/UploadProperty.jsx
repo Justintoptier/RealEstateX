@@ -57,8 +57,10 @@ const UploadProperty = () => {
       configurations: formData.configurations,
       location: formData.location,
       pricePerSqft: parseInt(formData.pricePerSqft) || 0,
+      carpetArea: parseInt(formData.carpetArea) || 0,
       developer: formData.developer,
       description: formData.description,
+      tags: formData.tags ? formData.tags.split(',').map(tag => tag.trim()) : [],
       video: videoFile ? videoFile.name : null,
       floorPlan: floorPlanFile ? floorPlanFile.name : null
     };
