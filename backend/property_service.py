@@ -144,6 +144,16 @@ def delete_property(db: Session, property_id: str):
 def property_to_schema(db_property: models.Property) -> schemas.Property:
     """Convert database property to schema with tags"""
     tags = [tag.tag_name for tag in db_property.tags]
+    
+    # Parse field visibility JSON
+    field_visibility = None
+    if db_property.field_visibility:
+        import json
+        try:
+            field_visibility = json.loads(db_property.field_visibility)
+        except:
+            field_visibility = None
+    
     return schemas.Property(
         property_id=db_property.property_id,
         name=db_property.name,
@@ -158,6 +168,7 @@ def property_to_schema(db_property: models.Property) -> schemas.Property:
         video_file=db_property.video_file,
         floor_plan_file=db_property.floor_plan_file,
         is_hidden=db_property.is_hidden,
+        field_visibility=field_visibility,
         uploaded_by=db_property.uploaded_by,
         created_at=db_property.created_at,
         updated_at=db_property.updated_at,
