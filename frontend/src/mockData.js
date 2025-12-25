@@ -362,3 +362,62 @@ export const searchProperties = (filters) => {
   
   return properties;
 };
+
+// User Management Functions
+export const getMockUsers = () => {
+  const stored = localStorage.getItem('mockUsers');
+  if (stored) {
+    return JSON.parse(stored);
+  }
+  
+  const defaultUsers = [
+    {
+      user_id: 'user_default_1',
+      name: 'John Doe',
+      email: 'user@makkotwal.com',
+      role: 'user',
+      picture: 'https://ui-avatars.com/api/?name=John+Doe&background=fbbf24&color=000',
+      created_at: new Date().toISOString()
+    },
+    {
+      user_id: 'admin_default_1',
+      name: 'Admin User',
+      email: 'admin@makkotwal.com',
+      role: 'admin',
+      picture: 'https://ui-avatars.com/api/?name=Admin+User&background=fbbf24&color=000',
+      created_at: new Date().toISOString()
+    }
+  ];
+  
+  localStorage.setItem('mockUsers', JSON.stringify(defaultUsers));
+  return defaultUsers;
+};
+
+export const addUser = (userData) => {
+  const users = getMockUsers();
+  const newUser = {
+    user_id: 'user_' + Date.now(),
+    ...userData,
+    created_at: new Date().toISOString()
+  };
+  users.push(newUser);
+  localStorage.setItem('mockUsers', JSON.stringify(users));
+  return newUser;
+};
+
+export const deleteUser = (userId) => {
+  const users = getMockUsers();
+  const filtered = users.filter(u => u.user_id !== userId);
+  localStorage.setItem('mockUsers', JSON.stringify(filtered));
+};
+
+export const updateUserRole = (userId, newRole) => {
+  const users = getMockUsers();
+  const index = users.findIndex(u => u.user_id === userId);
+  if (index !== -1) {
+    users[index].role = newRole;
+    localStorage.setItem('mockUsers', JSON.stringify(users));
+    return users[index];
+  }
+  return null;
+};
