@@ -38,7 +38,7 @@ const AuthModal = ({ isOpen, onClose, onLogin }) => {
     return 'MAKV' + Math.random().toString(36).substring(2, 15).toUpperCase();
   };
 
-  const handleCredentialsSubmit = (e) => {
+  const handleCredentialsSubmit = async (e) => {
     e.preventDefault();
 
     if (!formData.username || !formData.email) {
@@ -50,32 +50,51 @@ const AuthModal = ({ isOpen, onClose, onLogin }) => {
       return;
     }
 
-    // Generate 2FA secret and QR code
-    const secret = generate2FASecret();
-    const expectedOTP = generateOTP();
-    
-    // Store in session storage for verification
-    sessionStorage.setItem('temp_auth_data', JSON.stringify({
-      ...formData,
-      secret,
-      expectedOTP
-    }));
+    try {
+      // Call backend to init 2FA
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth/init-2fa`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          username: formData.username,
+          email: formData.email,
+          role: formData.role
+        })
+      });
 
-    // Generate QR code URL (using a simple format for demo)
-    const qrData = `otpauth://totp/MAK%20Kotwal%20Venus:${formData.email}?secret=${secret}&issuer=MAK%20Kotwal%20Venus&digits=6`;
-    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrData)}`;
-    
-    setQrCodeUrl(qrUrl);
-    setSecret(secret);
-    setStep('2fa');
+      if (!response.ok) {
+        throw new Error('Failed to initialize 2FA');
+      }
 
-    // For demo purposes, show the OTP in console (in production, user would get it from authenticator app)
-    console.log('Demo OTP Code:', expectedOTP);
-    toast({
-      title: 'Demo Mode',
-      description: `For testing, use OTP: ${expectedOTP}`,
-      variant: 'default'
-    });
+      const data = await response.json();
+      
+      // Store temp token for verification
+      sessionStorage.setItem('temp_token', data.temp_token);
+      
+      // Generate QR code URL from totp_uri
+      const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(data.totp_uri)}`;
+      
+      setQrCodeUrl(qrUrl);
+      setSecret(data.secret);
+      setStep('2fa');
+
+      // For demo purposes, show the OTP
+      toast({
+        title: 'Demo Mode',
+        description: `For testing, use OTP: ${data.demo_otp}`,
+        variant: 'default',
+        duration: 10000
+      });
+    } catch (error) {
+      console.error('2FA init error:', error);
+      toast({
+        title: 'Error',
+        description: 'Failed to initialize 2FA. Please try again.',
+        variant: 'destructive'
+      });
+    }
   };
 
   const handleOTPVerification = (e) => {
