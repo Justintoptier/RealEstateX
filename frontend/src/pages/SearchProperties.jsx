@@ -20,8 +20,10 @@ const SearchProperties = () => {
     configurations: '',
     developer: '',
     minPricePerSqft: '',
-    maxPricePerSqft: ''
+    maxPricePerSqft: '',
+    tags: ''
   });
+  const [carpetAreaRange, setCarpetAreaRange] = useState([500, 5000]);
   const [results, setResults] = useState([]);
   const [hasSearched, setHasSearched] = useState(false);
 
