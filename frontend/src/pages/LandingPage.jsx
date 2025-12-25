@@ -1,34 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../components/ui/button';
-import { Building2, User, Shield } from 'lucide-react';
+import { Building2 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import AuthModal from '../components/AuthModal';
 
 const LandingPage = () => {
   const navigate = useNavigate();
   const { mockLogin } = useAuth();
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
-  const handleUserLogin = () => {
-    // Mock login as regular user
-    mockLogin({
-      user_id: 'mock_user_' + Date.now(),
-      name: 'John Doe',
-      email: 'user@propertyhub.com',
-      role: 'user',
-      picture: 'https://ui-avatars.com/api/?name=John+Doe&background=fbbf24&color=000'
-    });
-    navigate('/dashboard');
-  };
-
-  const handleAdminLogin = () => {
-    // Mock login as admin
-    mockLogin({
-      user_id: 'mock_admin_' + Date.now(),
-      name: 'Admin User',
-      email: 'admin@propertyhub.com',
-      role: 'admin',
-      picture: 'https://ui-avatars.com/api/?name=Admin+User&background=fbbf24&color=000'
-    });
+  const handleLogin = (userData) => {
+    mockLogin(userData);
     navigate('/dashboard');
   };
 
@@ -61,29 +44,26 @@ const LandingPage = () => {
           Your comprehensive real estate property management solution
         </p>
 
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4">
-          <Button
-            onClick={handleUserLogin}
-            className="px-8 py-6 text-lg bg-amber-200 hover:bg-amber-300 text-black font-medium transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
-          >
-            <User className="w-5 h-5 mr-2" />
-            Login as User
-          </Button>
-          <Button
-            onClick={handleAdminLogin}
-            className="px-8 py-6 text-lg bg-transparent border-2 border-amber-200 text-amber-200 hover:bg-amber-200 hover:text-black font-medium transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
-          >
-            <Shield className="w-5 h-5 mr-2" />
-            Login as Admin
-          </Button>
-        </div>
+        {/* CTA Button */}
+        <Button
+          onClick={() => setShowAuthModal(true)}
+          className="px-12 py-6 text-lg bg-amber-200 hover:bg-amber-300 text-black font-medium transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+        >
+          Get Started
+        </Button>
 
         {/* Footer */}
         <div className="absolute bottom-8 text-gray-400 text-sm">
           Real Estate Management System
         </div>
       </div>
+
+      {/* Auth Modal */}
+      <AuthModal 
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        onLogin={handleLogin}
+      />
     </div>
   );
 };
