@@ -180,7 +180,7 @@ const PropertyDetailsModal = ({ property, isOpen, onClose, onUpdate }) => {
           {/* Property Details Grid */}
           <div className="grid md:grid-cols-2 gap-4">
             {/* Configuration */}
-            {property.configurations && (
+            {property.configurations && isFieldVisible('configurations') && (
               <div className="bg-black/30 p-4 rounded-lg border border-gray-800">
                 <div className="flex items-center gap-2 mb-2">
                   <Home className="w-5 h-5 text-amber-200" />
@@ -191,16 +191,18 @@ const PropertyDetailsModal = ({ property, isOpen, onClose, onUpdate }) => {
             )}
 
             {/* Location */}
-            <div className="bg-black/30 p-4 rounded-lg border border-gray-800">
-              <div className="flex items-center gap-2 mb-2">
-                <MapPin className="w-5 h-5 text-amber-200" />
-                <span className="text-gray-400 text-sm">Location</span>
+            {isFieldVisible('location') && (
+              <div className="bg-black/30 p-4 rounded-lg border border-gray-800">
+                <div className="flex items-center gap-2 mb-2">
+                  <MapPin className="w-5 h-5 text-amber-200" />
+                  <span className="text-gray-400 text-sm">Location</span>
+                </div>
+                <p className="text-white text-lg font-medium">{property.location}</p>
               </div>
-              <p className="text-white text-lg font-medium">{property.location}</p>
-            </div>
+            )}
 
             {/* Carpet Area */}
-            {property.carpet_area && (
+            {property.carpet_area && isFieldVisible('carpet_area') && (
               <div className="bg-black/30 p-4 rounded-lg border border-gray-800">
                 <div className="flex items-center gap-2 mb-2">
                   <Home className="w-5 h-5 text-amber-200" />
@@ -211,7 +213,7 @@ const PropertyDetailsModal = ({ property, isOpen, onClose, onUpdate }) => {
             )}
 
             {/* Price per Sqft */}
-            {property.price_per_sqft && (
+            {property.price_per_sqft && isFieldVisible('price_per_sqft') && (
               <div className="bg-black/30 p-4 rounded-lg border border-gray-800">
                 <div className="flex items-center gap-2 mb-2">
                   <DollarSign className="w-5 h-5 text-amber-200" />
@@ -222,7 +224,7 @@ const PropertyDetailsModal = ({ property, isOpen, onClose, onUpdate }) => {
             )}
 
             {/* Developer */}
-            {property.developer && (
+            {property.developer && isFieldVisible('developer') && (
               <div className="bg-black/30 p-4 rounded-lg border border-gray-800 md:col-span-2">
                 <div className="flex items-center gap-2 mb-2">
                   <Building className="w-5 h-5 text-amber-200" />
@@ -234,7 +236,7 @@ const PropertyDetailsModal = ({ property, isOpen, onClose, onUpdate }) => {
           </div>
 
           {/* Description */}
-          {property.description && (
+          {property.description && isFieldVisible('description') && (
             <div className="bg-black/30 p-4 rounded-lg border border-gray-800">
               <h3 className="text-lg font-semibold text-white mb-2">Description</h3>
               <p className="text-gray-300 leading-relaxed">{property.description}</p>
@@ -242,7 +244,7 @@ const PropertyDetailsModal = ({ property, isOpen, onClose, onUpdate }) => {
           )}
 
           {/* Tags */}
-          {property.tags && property.tags.length > 0 && (
+          {property.tags && property.tags.length > 0 && isFieldVisible('tags') && (
             <div className="bg-black/30 p-4 rounded-lg border border-gray-800">
               <h3 className="text-lg font-semibold text-white mb-3">Features</h3>
               <div className="flex flex-wrap gap-2">
@@ -259,7 +261,7 @@ const PropertyDetailsModal = ({ property, isOpen, onClose, onUpdate }) => {
           )}
 
           {/* Download Section */}
-          {(property.video_file || property.floor_plan_file) && (
+          {(property.video_file || property.floor_plan_file) && isFieldVisible('downloads') && (
             <div className="bg-black/30 p-4 rounded-lg border border-gray-800">
               <h3 className="text-lg font-semibold text-white mb-4">Downloads</h3>
               <div className="grid md:grid-cols-2 gap-4">
@@ -286,7 +288,7 @@ const PropertyDetailsModal = ({ property, isOpen, onClose, onUpdate }) => {
           )}
 
           {/* Google Maps Link */}
-          {property.gmaps_link && (
+          {property.gmaps_link && isFieldVisible('gmaps_link') && (
             <div className="bg-black/30 p-4 rounded-lg border border-gray-800">
               <h3 className="text-lg font-semibold text-white mb-3">Location</h3>
               <a
