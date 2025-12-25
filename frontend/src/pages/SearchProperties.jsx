@@ -35,7 +35,12 @@ const SearchProperties = () => {
   };
 
   const handleSearch = () => {
-    const searchResults = searchProperties(filters);
+    const searchFilters = {
+      ...filters,
+      minCarpetArea: carpetAreaRange[0],
+      maxCarpetArea: carpetAreaRange[1]
+    };
+    const searchResults = searchProperties(searchFilters);
     setResults(searchResults);
     setHasSearched(true);
   };
@@ -49,8 +54,10 @@ const SearchProperties = () => {
       configurations: '',
       developer: '',
       minPricePerSqft: '',
-      maxPricePerSqft: ''
+      maxPricePerSqft: '',
+      tags: ''
     });
+    setCarpetAreaRange([500, 5000]);
     setResults([]);
     setHasSearched(false);
   };
