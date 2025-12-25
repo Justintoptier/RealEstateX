@@ -77,7 +77,7 @@ const SearchProperties = () => {
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Building2 className="w-8 h-8 text-amber-200" strokeWidth={1.5} />
-            <span className="text-2xl font-serif text-white">PropertyHub</span>
+            <span className="text-2xl font-serif text-white">MAK Kotwal Venus</span>
           </div>
           <div className="text-right">
             <p className="text-white font-medium">{user?.name || 'User'}</p>
