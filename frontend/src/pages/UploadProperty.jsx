@@ -56,7 +56,9 @@ const UploadProperty = () => {
       location: formData.location,
       pricePerSqft: parseInt(formData.pricePerSqft) || 0,
       developer: formData.developer,
-      description: formData.description
+      description: formData.description,
+      video: videoFile ? videoFile.name : null,
+      floorPlan: floorPlanFile ? floorPlanFile.name : null
     };
 
     saveProperty(property);
@@ -77,6 +79,8 @@ const UploadProperty = () => {
       developer: '',
       description: ''
     });
+    setVideoFile(null);
+    setFloorPlanFile(null);
   };
 
   const handleExcelSubmit = (e) => {
