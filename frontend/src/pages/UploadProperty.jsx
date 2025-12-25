@@ -394,9 +394,10 @@ const UploadProperty = () => {
                   <div className="bg-black/50 border border-gray-800 rounded-lg p-6">
                     <h4 className="text-white font-medium mb-3">Excel Format Requirements:</h4>
                     <ul className="text-gray-400 text-sm space-y-2">
-                      <li>• Column headers: Property Name, Budget, Configurations, Location, Price per Sqft, Developer, Description</li>
+                      <li>• Column headers: Property Name, Budget, Configurations, Location, Price per Sqft, Developer, Description, Video, Floor Plan</li>
                       <li>• Budget and Price per Sqft should be numeric values</li>
                       <li>• All rows must have Property Name, Budget, and Location</li>
+                      <li>• Video and Floor Plan columns can contain file names or URLs</li>
                       <li>• Save file as .xlsx or .xls format</li>
                     </ul>
                   </div>
