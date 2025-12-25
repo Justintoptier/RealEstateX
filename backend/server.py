@@ -354,16 +354,18 @@ async def get_properties_endpoint(
 async def search_properties_endpoint(
     filters: schemas.PropertySearchFilters,
     db: Session = Depends(get_db),
-    current_user: Optional[models.User] = None
+    session_token: Optional[str] = Cookie(None)
 ):
     """Search properties with filters (public endpoint, but admin sees hidden properties)"""
-    # Try to get current user, but don't require it
-    try:
-        from fastapi import Request
-        # This is a public endpoint, so we won't enforce authentication
-        pass
-    except:
-        pass
+    # Try to get current user if session exists
+    current_user = None
+    if session_token:
+        try:
+            session = auth_service.get_session(db, session_token)
+            if session:
+                current_user = auth_service.get_user_by_id(db, session.user_id)
+        except:
+            pass
     
     # Admin can see hidden properties
     if current_user and current_user.role == 'admin':
