@@ -425,6 +425,13 @@ const SearchProperties = () => {
           </div>
         )}
       </main>
+
+      {/* Property Details Modal */}
+      <PropertyDetailsModal
+        property={selectedProperty}
+        isOpen={showDetailsModal}
+        onClose={() => setShowDetailsModal(false)}
+      />
     </div>
   );
 };
