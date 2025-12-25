@@ -85,7 +85,8 @@ const UploadProperty = () => {
       carpetArea: '',
       developer: '',
       description: '',
-      tags: ''
+      tags: '',
+      gmapsLink: ''
     });
     setVideoFile(null);
     setFloorPlanFile(null);
