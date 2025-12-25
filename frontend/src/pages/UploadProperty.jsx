@@ -38,7 +38,7 @@ const UploadProperty = () => {
     });
   };
 
-  const handleManualSubmit = (e) => {
+  const handleManualSubmit = async (e) => {
     e.preventDefault();
     
     // Validate required fields
@@ -51,45 +51,63 @@ const UploadProperty = () => {
       return;
     }
 
-    // Save property to localStorage
-    const property = {
-      name: formData.name,
-      budget: parseInt(formData.budget),
-      configurations: formData.configurations,
-      location: formData.location,
-      pricePerSqft: parseInt(formData.pricePerSqft) || 0,
-      carpetArea: parseInt(formData.carpetArea) || 0,
-      developer: formData.developer,
-      description: formData.description,
-      tags: formData.tags ? formData.tags.split(',').map(tag => tag.trim()) : [],
-      gmapsLink: formData.gmapsLink,
-      video: videoFile ? videoFile.name : null,
-      floorPlan: floorPlanFile ? floorPlanFile.name : null
-    };
+    try {
+      // Create FormData for file upload
+      const formDataToSend = new FormData();
+      formDataToSend.append('name', formData.name);
+      formDataToSend.append('budget', formData.budget);
+      formDataToSend.append('location', formData.location);
+      
+      if (formData.configurations) formDataToSend.append('configurations', formData.configurations);
+      if (formData.pricePerSqft) formDataToSend.append('price_per_sqft', formData.pricePerSqft);
+      if (formData.carpetArea) formDataToSend.append('carpet_area', formData.carpetArea);
+      if (formData.developer) formDataToSend.append('developer', formData.developer);
+      if (formData.description) formDataToSend.append('description', formData.description);
+      if (formData.gmapsLink) formDataToSend.append('gmaps_link', formData.gmapsLink);
+      if (formData.tags) formDataToSend.append('tags', formData.tags);
+      
+      if (videoFile) formDataToSend.append('video_file', videoFile);
+      if (floorPlanFile) formDataToSend.append('floor_plan_file', floorPlanFile);
 
-    saveProperty(property);
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/properties`, {
+        method: 'POST',
+        credentials: 'include',
+        body: formDataToSend
+      });
 
-    toast({
-      title: 'Success',
-      description: 'Property added successfully!',
-      variant: 'default'
-    });
+      if (!response.ok) {
+        throw new Error('Failed to create property');
+      }
 
-    // Reset form
-    setFormData({
-      name: '',
-      budget: '',
-      configurations: '',
-      location: '',
-      pricePerSqft: '',
-      carpetArea: '',
-      developer: '',
-      description: '',
-      tags: '',
-      gmapsLink: ''
-    });
-    setVideoFile(null);
-    setFloorPlanFile(null);
+      toast({
+        title: 'Success',
+        description: 'Property added successfully!',
+        variant: 'default'
+      });
+
+      // Reset form
+      setFormData({
+        name: '',
+        budget: '',
+        configurations: '',
+        location: '',
+        pricePerSqft: '',
+        carpetArea: '',
+        developer: '',
+        description: '',
+        tags: '',
+        gmapsLink: ''
+      });
+      setVideoFile(null);
+      setFloorPlanFile(null);
+    } catch (error) {
+      console.error('Create property error:', error);
+      toast({
+        title: 'Error',
+        description: 'Failed to create property. Please try again.',
+        variant: 'destructive'
+      });
+    }
   };
 
   const handleExcelSubmit = (e) => {
