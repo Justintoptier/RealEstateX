@@ -154,5 +154,21 @@ export const searchProperties = (filters) => {
     properties = properties.filter(p => p.pricePerSqft <= parseInt(filters.maxPricePerSqft));
   }
   
+  if (filters.minCarpetArea) {
+    properties = properties.filter(p => p.carpetArea >= parseInt(filters.minCarpetArea));
+  }
+  
+  if (filters.maxCarpetArea) {
+    properties = properties.filter(p => p.carpetArea <= parseInt(filters.maxCarpetArea));
+  }
+  
+  if (filters.tags) {
+    properties = properties.filter(p => 
+      p.tags && p.tags.some(tag => 
+        tag.toLowerCase().includes(filters.tags.toLowerCase())
+      )
+    );
+  }
+  
   return properties;
 };
