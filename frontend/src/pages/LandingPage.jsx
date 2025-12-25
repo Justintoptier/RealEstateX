@@ -53,7 +53,7 @@ const LandingPage = () => {
 
         {/* Brand Title */}
         <h1 className="text-6xl md:text-7xl font-serif text-white mb-4 tracking-wide">
-          PropertyHub
+          MAK Kotwal Venus
         </h1>
 
         {/* Subtitle */}
