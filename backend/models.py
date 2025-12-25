@@ -52,6 +52,7 @@ class Property(Base):
     video_file = Column(String, nullable=True)
     floor_plan_file = Column(String, nullable=True)
     is_hidden = Column(Boolean, default=False)
+    field_visibility = Column(Text, nullable=True)  # JSON string for field visibility settings
     uploaded_by = Column(String, ForeignKey('users.user_id'), nullable=True)
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
