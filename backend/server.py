@@ -418,6 +418,22 @@ async def delete_property_endpoint(
         return {"message": "Property deleted successfully"}
     raise HTTPException(status_code=404, detail="Property not found")
 
+# ==================== FILE DOWNLOAD ENDPOINTS ====================
+
+@api_router.get("/files/{filename}")
+async def download_file(filename: str):
+    """Download uploaded files (video/floor plan)"""
+    file_path = UPLOAD_DIR / filename
+    
+    if not file_path.exists():
+        raise HTTPException(status_code=404, detail="File not found")
+    
+    return FileResponse(
+        path=file_path,
+        filename=filename,
+        media_type='application/octet-stream'
+    )
+
 # ==================== HEALTH CHECK ====================
 
 @api_router.get("/")
