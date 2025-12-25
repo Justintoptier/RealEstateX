@@ -407,6 +407,25 @@ async def toggle_property_visibility_endpoint(
     db_property = property_service.toggle_property_visibility(db, property_id)
     return property_service.property_to_schema(db_property)
 
+@api_router.patch("/properties/{property_id}/field-visibility")
+async def update_field_visibility_endpoint(
+    property_id: str,
+    visibility_data: schemas.FieldVisibilityUpdate,
+    current_user: models.User = Depends(get_admin_user),
+    db: Session = Depends(get_db)
+):
+    """Update field visibility settings (admin only)"""
+    db_property = property_service.get_property(db, property_id)
+    if not db_property:
+        raise HTTPException(status_code=404, detail="Property not found")
+    
+    import json
+    db_property.field_visibility = json.dumps(visibility_data.field_visibility)
+    db.commit()
+    db.refresh(db_property)
+    
+    return property_service.property_to_schema(db_property)
+
 @api_router.delete("/properties/{property_id}")
 async def delete_property_endpoint(
     property_id: str,
