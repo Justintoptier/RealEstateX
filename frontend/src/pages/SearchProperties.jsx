@@ -29,6 +29,8 @@ const SearchProperties = () => {
   const [carpetAreaRange, setCarpetAreaRange] = useState([500, 5000]);
   const [results, setResults] = useState([]);
   const [hasSearched, setHasSearched] = useState(false);
+  const [selectedProperty, setSelectedProperty] = useState(null);
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
 
   // Load all properties on mount
   useEffect(() => {
