@@ -125,20 +125,57 @@ const PropertyDetailsModal = ({ property, isOpen, onClose, onUpdate }) => {
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="bg-gray-900 border-gray-800 text-white max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-3xl font-serif text-white pr-8">
-            {property.name}
-          </DialogTitle>
+          <div className="flex items-center justify-between pr-8">
+            <DialogTitle className="text-3xl font-serif text-white">
+              {property.name}
+            </DialogTitle>
+            {isAdmin && (
+              <Button
+                onClick={() => setShowFieldSettings(!showFieldSettings)}
+                variant="ghost"
+                className="text-amber-200 hover:text-amber-300 hover:bg-amber-200/10"
+              >
+                <Settings className="w-5 h-5" />
+              </Button>
+            )}
+          </div>
         </DialogHeader>
 
         <div className="space-y-6 mt-4">
-          {/* Price */}
-          <div className="bg-amber-200/10 p-4 rounded-lg border border-amber-200/20">
-            <div className="flex items-center gap-2 mb-2">
-              <DollarSign className="w-5 h-5 text-amber-200" />
-              <span className="text-gray-400 text-sm">Price</span>
+          {/* Field Visibility Settings - Admin Only */}
+          {isAdmin && showFieldSettings && (
+            <div className="bg-gray-800/50 p-4 rounded-lg border border-amber-200/20">
+              <h3 className="text-lg font-semibold text-amber-200 mb-3">
+                Field Visibility Settings (User View)
+              </h3>
+              <div className="grid md:grid-cols-2 gap-2">
+                <FieldToggle fieldName="budget" label="Budget/Price" />
+                <FieldToggle fieldName="configurations" label="Configuration" />
+                <FieldToggle fieldName="location" label="Location" />
+                <FieldToggle fieldName="carpet_area" label="Carpet Area" />
+                <FieldToggle fieldName="price_per_sqft" label="Price per Sqft" />
+                <FieldToggle fieldName="developer" label="Developer" />
+                <FieldToggle fieldName="description" label="Description" />
+                <FieldToggle fieldName="gmaps_link" label="Google Maps" />
+                <FieldToggle fieldName="tags" label="Tags/Features" />
+                <FieldToggle fieldName="downloads" label="Downloads" />
+              </div>
+              <p className="text-xs text-gray-400 mt-3">
+                Toggle visibility of fields for regular users. You (admin) can always see all fields.
+              </p>
             </div>
-            <p className="text-3xl font-bold text-amber-200">{formatCurrency(property.budget)}</p>
-          </div>
+          )}
+
+          {/* Price */}
+          {isFieldVisible('budget') && (
+            <div className="bg-amber-200/10 p-4 rounded-lg border border-amber-200/20">
+              <div className="flex items-center gap-2 mb-2">
+                <DollarSign className="w-5 h-5 text-amber-200" />
+                <span className="text-gray-400 text-sm">Price</span>
+              </div>
+              <p className="text-3xl font-bold text-amber-200">{formatCurrency(property.budget)}</p>
+            </div>
+          )}
 
           {/* Property Details Grid */}
           <div className="grid md:grid-cols-2 gap-4">
