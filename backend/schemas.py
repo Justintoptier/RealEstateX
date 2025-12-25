@@ -70,6 +70,7 @@ class Property(PropertyBase):
     video_file: Optional[str] = None
     floor_plan_file: Optional[str] = None
     is_hidden: bool = False
+    field_visibility: Optional[dict] = None
     uploaded_by: Optional[str] = None
     created_at: datetime
     updated_at: datetime
@@ -77,6 +78,10 @@ class Property(PropertyBase):
     
     class Config:
         from_attributes = True
+
+# Field Visibility Schema
+class FieldVisibilityUpdate(BaseModel):
+    field_visibility: dict  # e.g., {"budget": false, "location": true, "price_per_sqft": false}
 
 # Search Filters
 class PropertySearchFilters(BaseModel):
