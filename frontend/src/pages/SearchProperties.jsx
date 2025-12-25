@@ -6,8 +6,9 @@ import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Slider } from '../components/ui/slider';
-import { Building2, ArrowLeft, X } from 'lucide-react';
-import { searchProperties } from '../mockData';
+import { Building2, ArrowLeft, X, Eye, EyeOff } from 'lucide-react';
+import { searchProperties, togglePropertyVisibility } from '../mockData';
+import { useToast } from '../hooks/use-toast';
 
 const SearchProperties = () => {
   const navigate = useNavigate();
