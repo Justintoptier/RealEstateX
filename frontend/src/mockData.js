@@ -1,5 +1,7 @@
 // Mock data for PropertyHub
 
+// Mock data for MAK Kotwal Venus
+
 export const getMockProperties = () => {
   const stored = localStorage.getItem('properties');
   if (stored) {
@@ -17,7 +19,8 @@ export const getMockProperties = () => {
       carpetArea: 2800,
       developer: 'Oberoi Realty',
       description: 'Stunning penthouse with panoramic views of the Arabian Sea',
-      tags: ['Sea View', 'Premium', 'Penthouse']
+      tags: ['Sea View', 'Premium', 'Penthouse'],
+      gmapsLink: 'https://maps.google.com/?q=Bandra+West+Mumbai'
     },
     {
       id: '2',
@@ -29,7 +32,8 @@ export const getMockProperties = () => {
       carpetArea: 4500,
       developer: 'Brigade Group',
       description: 'Spacious villa with private garden and swimming pool',
-      tags: ['Villa', 'Garden', 'Pool']
+      tags: ['Villa', 'Garden', 'Pool'],
+      gmapsLink: 'https://maps.google.com/?q=Whitefield+Bangalore'
     },
     {
       id: '3',
@@ -41,7 +45,8 @@ export const getMockProperties = () => {
       carpetArea: 1800,
       developer: 'Godrej Properties',
       description: 'Contemporary design with premium amenities',
-      tags: ['Modern', 'Amenities']
+      tags: ['Modern', 'Amenities'],
+      gmapsLink: 'https://maps.google.com/?q=Andheri+East+Mumbai'
     },
     {
       id: '4',
@@ -53,7 +58,8 @@ export const getMockProperties = () => {
       carpetArea: 2100,
       developer: 'Lodha Group',
       description: 'High-rise luxury apartment with lake view',
-      tags: ['Lake View', 'High Rise']
+      tags: ['Lake View', 'High Rise'],
+      gmapsLink: 'https://maps.google.com/?q=Powai+Mumbai'
     },
     {
       id: '5',
@@ -65,7 +71,8 @@ export const getMockProperties = () => {
       carpetArea: 5200,
       developer: 'Prestige Group',
       description: 'Exclusive mansion with expansive gardens',
-      tags: ['Mansion', 'Luxury', 'Garden']
+      tags: ['Mansion', 'Luxury', 'Garden'],
+      gmapsLink: 'https://maps.google.com/?q=Koramangala+Bangalore'
     },
     {
       id: '6',
@@ -77,7 +84,190 @@ export const getMockProperties = () => {
       carpetArea: 1200,
       developer: 'DLF Limited',
       description: 'Compact and efficient urban living space',
-      tags: ['Compact', 'Urban']
+      tags: ['Compact', 'Urban'],
+      gmapsLink: 'https://maps.google.com/?q=Gurgaon+Delhi+NCR'
+    },
+    {
+      id: '7',
+      name: 'Riverside Apartments',
+      budget: 9800000,
+      configurations: '3 BHK',
+      location: 'Pune, Maharashtra',
+      pricePerSqft: 22000,
+      carpetArea: 2200,
+      developer: 'Kolte Patil',
+      description: 'Serene living by the riverside with modern amenities',
+      tags: ['River View', 'Peaceful', 'Modern'],
+      gmapsLink: 'https://maps.google.com/?q=Pune+Maharashtra'
+    },
+    {
+      id: '8',
+      name: 'Green Valley Homes',
+      budget: 6700000,
+      configurations: '2 BHK',
+      location: 'Navi Mumbai, Maharashtra',
+      pricePerSqft: 25000,
+      carpetArea: 1500,
+      developer: 'Hiranandani',
+      description: 'Eco-friendly homes with lush greenery',
+      tags: ['Eco-Friendly', 'Green', 'Family'],
+      gmapsLink: 'https://maps.google.com/?q=Navi+Mumbai'
+    },
+    {
+      id: '9',
+      name: 'Tech Park Residency',
+      budget: 11500000,
+      configurations: '3 BHK',
+      location: 'Electronic City, Bangalore',
+      pricePerSqft: 19000,
+      carpetArea: 2400,
+      developer: 'Sobha Limited',
+      description: 'Close to IT parks with excellent connectivity',
+      tags: ['IT Hub', 'Connectivity', 'Modern'],
+      gmapsLink: 'https://maps.google.com/?q=Electronic+City+Bangalore'
+    },
+    {
+      id: '10',
+      name: 'Royal Heights',
+      budget: 18000000,
+      configurations: '4 BHK',
+      location: 'South Delhi, Delhi',
+      pricePerSqft: 45000,
+      carpetArea: 3000,
+      developer: 'Emaar India',
+      description: 'Luxury living in the heart of South Delhi',
+      tags: ['Luxury', 'Central', 'Premium'],
+      gmapsLink: 'https://maps.google.com/?q=South+Delhi'
+    },
+    {
+      id: '11',
+      name: 'Coastal Paradise',
+      budget: 22000000,
+      configurations: '4 BHK',
+      location: 'Worli, Mumbai',
+      pricePerSqft: 55000,
+      carpetArea: 3200,
+      developer: 'Lodha Group',
+      description: 'Beachfront property with stunning ocean views',
+      tags: ['Beach Front', 'Luxury', 'Sea View'],
+      gmapsLink: 'https://maps.google.com/?q=Worli+Mumbai'
+    },
+    {
+      id: '12',
+      name: 'Hill View Villas',
+      budget: 14500000,
+      configurations: '3 BHK',
+      location: 'Lonavala, Maharashtra',
+      pricePerSqft: 16000,
+      carpetArea: 2600,
+      developer: 'Shapoorji Pallonji',
+      description: 'Weekend homes with breathtaking hill views',
+      tags: ['Hill View', 'Weekend Home', 'Peaceful'],
+      gmapsLink: 'https://maps.google.com/?q=Lonavala+Maharashtra'
+    },
+    {
+      id: '13',
+      name: 'Smart City Flats',
+      budget: 7200000,
+      configurations: '2 BHK',
+      location: 'Thane, Mumbai',
+      pricePerSqft: 24000,
+      carpetArea: 1600,
+      developer: 'Rustomjee',
+      description: 'Smart homes with IoT integration',
+      tags: ['Smart Home', 'Technology', 'Modern'],
+      gmapsLink: 'https://maps.google.com/?q=Thane+Mumbai'
+    },
+    {
+      id: '14',
+      name: 'Airport Residency',
+      budget: 10500000,
+      configurations: '3 BHK',
+      location: 'Andheri West, Mumbai',
+      pricePerSqft: 30000,
+      carpetArea: 2000,
+      developer: 'K Raheja Corp',
+      description: 'Near airport with excellent connectivity',
+      tags: ['Airport', 'Connectivity', 'Business'],
+      gmapsLink: 'https://maps.google.com/?q=Andheri+West+Mumbai'
+    },
+    {
+      id: '15',
+      name: 'Heritage Apartments',
+      budget: 13000000,
+      configurations: '3 BHK',
+      location: 'Indiranagar, Bangalore',
+      pricePerSqft: 26000,
+      carpetArea: 2300,
+      developer: 'Prestige Group',
+      description: 'Classic architecture with modern amenities',
+      tags: ['Heritage', 'Classic', 'Premium'],
+      gmapsLink: 'https://maps.google.com/?q=Indiranagar+Bangalore'
+    },
+    {
+      id: '16',
+      name: 'Golf Course Villas',
+      budget: 28000000,
+      configurations: '5 BHK',
+      location: 'DLF City, Gurgaon',
+      pricePerSqft: 35000,
+      carpetArea: 4800,
+      developer: 'DLF Limited',
+      description: 'Luxurious villas overlooking golf course',
+      tags: ['Golf Course', 'Luxury', 'Sports'],
+      gmapsLink: 'https://maps.google.com/?q=DLF+City+Gurgaon'
+    },
+    {
+      id: '17',
+      name: 'Metro Connect Homes',
+      budget: 5800000,
+      configurations: '2 BHK',
+      location: 'Noida, Uttar Pradesh',
+      pricePerSqft: 20000,
+      carpetArea: 1400,
+      developer: 'Supertech',
+      description: 'Well-connected to metro stations',
+      tags: ['Metro', 'Connectivity', 'Affordable'],
+      gmapsLink: 'https://maps.google.com/?q=Noida+Uttar+Pradesh'
+    },
+    {
+      id: '18',
+      name: 'Lake View Towers',
+      budget: 16500000,
+      configurations: '4 BHK',
+      location: 'Bellandur, Bangalore',
+      pricePerSqft: 28000,
+      carpetArea: 3100,
+      developer: 'Brigade Group',
+      description: 'Towers with stunning lake views',
+      tags: ['Lake View', 'High Rise', 'Premium'],
+      gmapsLink: 'https://maps.google.com/?q=Bellandur+Bangalore'
+    },
+    {
+      id: '19',
+      name: 'City Center Plaza',
+      budget: 9200000,
+      configurations: '2 BHK',
+      location: 'Connaught Place, Delhi',
+      pricePerSqft: 38000,
+      carpetArea: 1700,
+      developer: 'Tata Housing',
+      description: 'Prime location in the heart of the city',
+      tags: ['Central', 'Prime', 'Commercial Hub'],
+      gmapsLink: 'https://maps.google.com/?q=Connaught+Place+Delhi'
+    },
+    {
+      id: '20',
+      name: 'Sunset Residency',
+      budget: 19500000,
+      configurations: '4 BHK',
+      location: 'Marine Drive, Mumbai',
+      pricePerSqft: 48000,
+      carpetArea: 3400,
+      developer: 'Oberoi Realty',
+      description: 'Iconic location with breathtaking sunset views',
+      tags: ['Sea View', 'Iconic', 'Luxury'],
+      gmapsLink: 'https://maps.google.com/?q=Marine+Drive+Mumbai'
     }
   ];
   
