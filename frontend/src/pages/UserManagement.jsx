@@ -64,7 +64,7 @@ const UserManagement = () => {
     );
   }
 
-  const handleAddUser = (e) => {
+  const handleAddUser = async (e) => {
     e.preventDefault();
     
     if (!newUser.name || !newUser.email) {
@@ -76,49 +76,102 @@ const UserManagement = () => {
       return;
     }
 
-    const userData = {
-      name: newUser.name,
-      email: newUser.email,
-      role: newUser.role,
-      picture: `https://ui-avatars.com/api/?name=${encodeURIComponent(newUser.name)}&background=fbbf24&color=000`
-    };
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/users`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          username: newUser.name,
+          email: newUser.email,
+          role: newUser.role
+        })
+      });
 
-    addUser(userData);
-    loadUsers();
-    
-    toast({
-      title: 'Success',
-      description: 'User added successfully!',
-      variant: 'default'
-    });
+      if (!response.ok) {
+        throw new Error('Failed to add user');
+      }
 
-    setNewUser({ name: '', email: '', role: 'user' });
-    setShowAddForm(false);
-  };
-
-  const handleDeleteUser = (userId) => {
-    if (window.confirm('Are you sure you want to delete this user?')) {
-      deleteUser(userId);
-      loadUsers();
+      await loadUsers();
       
       toast({
         title: 'Success',
-        description: 'User deleted successfully!',
+        description: 'User added successfully!',
         variant: 'default'
+      });
+
+      setNewUser({ name: '', email: '', role: 'user' });
+      setShowAddForm(false);
+    } catch (error) {
+      console.error('Add user error:', error);
+      toast({
+        title: 'Error',
+        description: 'Failed to add user. Please try again.',
+        variant: 'destructive'
       });
     }
   };
 
-  const handleToggleRole = (userId, currentRole) => {
+  const handleDeleteUser = async (userId) => {
+    if (window.confirm('Are you sure you want to delete this user?')) {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/users/${userId}`, {
+          method: 'DELETE',
+          credentials: 'include'
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to delete user');
+        }
+
+        await loadUsers();
+        
+        toast({
+          title: 'Success',
+          description: 'User deleted successfully!',
+          variant: 'default'
+        });
+      } catch (error) {
+        console.error('Delete user error:', error);
+        toast({
+          title: 'Error',
+          description: 'Failed to delete user.',
+          variant: 'destructive'
+        });
+      }
+    }
+  };
+
+  const handleToggleRole = async (userId, currentRole) => {
     const newRole = currentRole === 'admin' ? 'user' : 'admin';
-    updateUserRole(userId, newRole);
-    loadUsers();
     
-    toast({
-      title: 'Success',
-      description: `User role updated to ${newRole}`,
-      variant: 'default'
-    });
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/users/${userId}/role?new_role=${newRole}`, {
+        method: 'PATCH',
+        credentials: 'include'
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update role');
+      }
+
+      await loadUsers();
+      
+      toast({
+        title: 'Success',
+        description: `User role updated to ${newRole}`,
+        variant: 'default'
+      });
+    } catch (error) {
+      console.error('Update role error:', error);
+      toast({
+        title: 'Error',
+        description: 'Failed to update user role.',
+        variant: 'destructive'
+      });
+    }
   };
 
   return (
