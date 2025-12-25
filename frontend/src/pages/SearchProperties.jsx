@@ -342,10 +342,17 @@ const SearchProperties = () => {
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {results.map((property) => (
-                <Card key={property.property_id} className={`bg-gray-900/50 border-gray-800 backdrop-blur-sm hover:bg-gray-900/70 transition-all duration-300 hover:shadow-lg hover:shadow-amber-200/10 relative ${property.is_hidden ? 'opacity-60' : ''}`}>
+                <Card 
+                  key={property.property_id} 
+                  className={`bg-gray-900/50 border-gray-800 backdrop-blur-sm hover:bg-gray-900/70 transition-all duration-300 hover:shadow-lg hover:shadow-amber-200/10 relative cursor-pointer ${property.is_hidden ? 'opacity-60' : ''}`}
+                  onClick={() => handlePropertyClick(property)}
+                >
                   {user?.role === 'admin' && (
                     <Button
-                      onClick={() => handleToggleVisibility(property.property_id)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleToggleVisibility(property.property_id);
+                      }}
                       variant="ghost"
                       size="sm"
                       className="absolute top-4 right-4 z-10 bg-black/50 hover:bg-black/70 text-amber-200"
