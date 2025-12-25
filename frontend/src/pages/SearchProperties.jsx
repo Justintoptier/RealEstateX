@@ -300,6 +300,18 @@ const SearchProperties = () => {
                         <span className="text-gray-400">Developer:</span>
                         <span className="text-white">{property.developer}</span>
                       </div>
+                      {property.gmapsLink && (
+                        <div className="pt-2">
+                          <a
+                            href={property.gmapsLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-amber-200 hover:text-amber-300 text-sm underline transition-colors duration-300"
+                          >
+                            View on Google Maps →
+                          </a>
+                        </div>
+                      )}
                       {property.tags && property.tags.length > 0 && (
                         <div className="pt-2 border-t border-gray-800">
                           <div className="flex flex-wrap gap-2">
