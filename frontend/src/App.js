@@ -46,6 +46,14 @@ function AppRouter() {
           </ProtectedRoute>
         } 
       />
+      <Route 
+        path="/users" 
+        element={
+          <ProtectedRoute>
+            <UserManagement />
+          </ProtectedRoute>
+        } 
+      />
     </Routes>
   );
 }
