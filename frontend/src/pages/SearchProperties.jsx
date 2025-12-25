@@ -221,6 +221,38 @@ const SearchProperties = () => {
                   className="bg-black/50 border-gray-700 text-white placeholder:text-gray-500 focus:border-amber-200 focus:ring-amber-200/20 transition-all duration-300"
                 />
               </div>
+
+              {/* Tags */}
+              <div>
+                <Label htmlFor="tags" className="text-gray-300 mb-2 block">Tags</Label>
+                <Input
+                  id="tags"
+                  name="tags"
+                  value={filters.tags}
+                  onChange={handleInputChange}
+                  placeholder="e.g., Sea View, Garden, Pool"
+                  className="bg-black/50 border-gray-700 text-white placeholder:text-gray-500 focus:border-amber-200 focus:ring-amber-200/20 transition-all duration-300"
+                />
+              </div>
+            </div>
+
+            {/* Carpet Area Slider */}
+            <div className="mt-6">
+              <Label className="text-gray-300 mb-4 block">
+                Carpet Area: {carpetAreaRange[0]} - {carpetAreaRange[1]} sqft
+              </Label>
+              <Slider
+                value={carpetAreaRange}
+                onValueChange={setCarpetAreaRange}
+                min={500}
+                max={5000}
+                step={100}
+                className="w-full"
+              />
+              <div className="flex justify-between text-gray-500 text-sm mt-2">
+                <span>500 sqft</span>
+                <span>5000 sqft</span>
+              </div>
             </div>
 
             {/* Search Button */}
