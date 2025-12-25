@@ -371,6 +371,11 @@ export const searchProperties = (filters) => {
     );
   }
   
+  // Filter hidden properties for non-admin users
+  if (!filters.showHidden) {
+    properties = properties.filter(p => !p.hidden);
+  }
+  
   return properties;
 };
 
