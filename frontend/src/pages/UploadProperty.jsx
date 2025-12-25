@@ -166,7 +166,7 @@ const UploadProperty = () => {
         <Card className="bg-gray-900/50 border-gray-800 backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="text-3xl text-white font-serif">Upload Property</CardTitle>
-            <p className="text-gray-400 mt-2">Add properties manually or upload via Excel</p>
+            <p className="text-gray-400 mt-2">Add properties manually or upload via Excel {!isAdmin && '(Excel upload restricted to admins)'}</p>
           </CardHeader>
           <CardContent>
             <Tabs defaultValue="manual" className="w-full">
@@ -179,9 +179,10 @@ const UploadProperty = () => {
                 </TabsTrigger>
                 <TabsTrigger 
                   value="excel"
-                  className="data-[state=active]:bg-amber-200 data-[state=active]:text-black transition-all duration-300"
+                  disabled={!isAdmin}
+                  className="data-[state=active]:bg-amber-200 data-[state=active]:text-black transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Excel Upload
+                  Excel Upload {!isAdmin && '(Admin Only)'}
                 </TabsTrigger>
               </TabsList>
 
