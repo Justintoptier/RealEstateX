@@ -14,8 +14,10 @@ export const getMockProperties = () => {
       configurations: '4 BHK',
       location: 'Bandra West, Mumbai',
       pricePerSqft: 35000,
+      carpetArea: 2800,
       developer: 'Oberoi Realty',
-      description: 'Stunning penthouse with panoramic views of the Arabian Sea'
+      description: 'Stunning penthouse with panoramic views of the Arabian Sea',
+      tags: ['Sea View', 'Premium', 'Penthouse']
     },
     {
       id: '2',
@@ -24,8 +26,10 @@ export const getMockProperties = () => {
       configurations: '5 BHK',
       location: 'Whitefield, Bangalore',
       pricePerSqft: 12000,
+      carpetArea: 4500,
       developer: 'Brigade Group',
-      description: 'Spacious villa with private garden and swimming pool'
+      description: 'Spacious villa with private garden and swimming pool',
+      tags: ['Villa', 'Garden', 'Pool']
     },
     {
       id: '3',
@@ -34,8 +38,10 @@ export const getMockProperties = () => {
       configurations: '3 BHK',
       location: 'Andheri East, Mumbai',
       pricePerSqft: 28000,
+      carpetArea: 1800,
       developer: 'Godrej Properties',
-      description: 'Contemporary design with premium amenities'
+      description: 'Contemporary design with premium amenities',
+      tags: ['Modern', 'Amenities']
     },
     {
       id: '4',
@@ -44,8 +50,10 @@ export const getMockProperties = () => {
       configurations: '3 BHK',
       location: 'Powai, Mumbai',
       pricePerSqft: 32000,
+      carpetArea: 2100,
       developer: 'Lodha Group',
-      description: 'High-rise luxury apartment with lake view'
+      description: 'High-rise luxury apartment with lake view',
+      tags: ['Lake View', 'High Rise']
     },
     {
       id: '5',
@@ -54,8 +62,10 @@ export const getMockProperties = () => {
       configurations: '6 BHK',
       location: 'Koramangala, Bangalore',
       pricePerSqft: 15000,
+      carpetArea: 5200,
       developer: 'Prestige Group',
-      description: 'Exclusive mansion with expansive gardens'
+      description: 'Exclusive mansion with expansive gardens',
+      tags: ['Mansion', 'Luxury', 'Garden']
     },
     {
       id: '6',
@@ -64,8 +74,10 @@ export const getMockProperties = () => {
       configurations: '2 BHK',
       location: 'Gurgaon, Delhi NCR',
       pricePerSqft: 18000,
+      carpetArea: 1200,
       developer: 'DLF Limited',
-      description: 'Compact and efficient urban living space'
+      description: 'Compact and efficient urban living space',
+      tags: ['Compact', 'Urban']
     }
   ];
   
