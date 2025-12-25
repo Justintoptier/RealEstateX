@@ -13,6 +13,7 @@ import { useToast } from '../hooks/use-toast';
 const SearchProperties = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { toast } = useToast();
   const [filters, setFilters] = useState({
     name: '',
     location: '',
