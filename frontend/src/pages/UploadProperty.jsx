@@ -62,6 +62,7 @@ const UploadProperty = () => {
       developer: formData.developer,
       description: formData.description,
       tags: formData.tags ? formData.tags.split(',').map(tag => tag.trim()) : [],
+      gmapsLink: formData.gmapsLink,
       video: videoFile ? videoFile.name : null,
       floorPlan: floorPlanFile ? floorPlanFile.name : null
     };
